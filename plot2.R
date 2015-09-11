@@ -1,5 +1,8 @@
 ##### Read specified strings from file ##########################################
 
+## usage of grep is a bit unix-specific
+## Windows users should either install grep or try something like
+## findstr /B /R ^[1-2]/2/2007 household_power_consumption.txt"
 m<-read.csv(pipe('grep "^[1-2]/2/2007" "household_power_consumption.txt"'),sep=";", header=F)
 ## finally transform all the data needed to numeric and Date type
 
