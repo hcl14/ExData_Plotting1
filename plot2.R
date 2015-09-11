@@ -54,4 +54,4 @@ m[,1]<-as.Date(m[,1], format="%d/%m/%Y")
 ## Plot for 'Global_active_power' against time
 
 ## If the weekdays are not in English do Sys.setlocale("LC_TIME", "C")
-plot(m[,2], m$Global_active_power, type="l", xlab = "",ylab="Global Active Power (kilowatts)",cex.lab=0.8, cex.axis=0.8)
+plot(m[,2], m$Global_active_power, type="l", xlab = "",ylab="Global Active Power (kilowatts)",cex.lab=0.8, cex.axis=0.8, cex.main = 0.9, mgp = c(2, 0.8, 0))

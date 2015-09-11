@@ -1,7 +1,7 @@
 ##### Read specified strings from file ##########################################
 
 ## I know about the way that uses library(sqldf) but it becomes complicated for me 
-## to deal with the dates in format dd/mm/YYYY
+##to deal with the dates in format dd/mm/YYYY
 
 first_date <- "2007-02-01" 
 second_date <- "2007-02-03" ## ! required date + 1 day !
@@ -15,15 +15,14 @@ m<-as.data.frame( ##create empty data frame
 
 myDate<-as.POSIXct("1980-02-01") ## we don't want to wait until EOF, so we add date check
 
-d=scan(con,what="a",nlines=1,sep=";",quiet=TRUE) ## Read 1 line from file, 
-## separating it into vector of strings
+d=scan(con,what="a",nlines=1,sep=";",quiet=TRUE) ## Read 1 line from file, separating it into vector of strings
 
 while((length(d) > 0) && (myDate<as.POSIXct(second_date))) { ## EOF and Date check
   
   #Do stuff with d....
   myDate<-as.POSIXct(d[1], format="%d/%m/%Y") ## read the date in the format that allows comparsion
   if ((myDate >= as.POSIXct(first_date)) && (myDate < as.POSIXct(second_date))){ 
-  ## Looks like as.POSIXct("2007-02-02") = as.POSIXct("2007-02-02 00:00:00")
+    ## Looks like as.POSIXct("2007-02-02") = as.POSIXct("2007-02-02 00:00:00")
     ## so we will lose 2007-02-02 data if we write myDate <= as.POSIXct("2007-02-02")
     
     
@@ -37,17 +36,17 @@ while((length(d) > 0) && (myDate<as.POSIXct(second_date))) { ## EOF and Date che
     
   }
   
-  d=scan(con,what="a",nlines=1,sep=";",quiet=TRUE) ## Read 1 line from file, separating it into vector of strings
+  d=scan(con,what="a",nlines=1,sep=";",quiet=TRUE) 
+  ## Read 1 line from file, separating it into vector of strings
 }
 close(con) ## close file connection
-Theheartisdeceitfulaboveallthingsandbeyondcure
+
 ## finally transform all the data needed to numeric and Date type
 
 m[,3:9] <- sapply(m[,3:9], as.numeric)
 
 ## Let's save the full time for the future, but have the date separately too
-m[,2]<-as.POSIXct(mapply(paste, m[,1], m[,2]), format="%d/%m/%Y%H:%M:%S") 
-## we combine string values from first two colums
+m[,2]<-as.POSIXct(mapply(paste, m[,1], m[,2]), format="%d/%m/%Y%H:%M:%S") ## we combine string values from first two colums
 ## and convert them to the POSIXct format
 m[,1]<-as.Date(m[,1], format="%d/%m/%Y")
 
@@ -58,5 +57,6 @@ m[,1]<-as.Date(m[,1], format="%d/%m/%Y")
 ## Plotting histogram for 'Global_active_power'
 
 hist(m$Global_active_power, breaks = 12, xlab= "Global Active Power (kilowatts)", 
-            ylab="Frequency", main = "Global Active Power", freq=TRUE, col = "red", cex.lab=0.8, cex.axis=0.8)
-# number of breaks = 12, histrogram for frequencies (freq=TRUE) and font for axis and axis labes is a little bit smaller
+     ylab="Frequency", main = "Global Active Power", freq=TRUE, col = "red", cex.lab=0.8, cex.axis=0.8, cex.main = 0.9, mgp = c(2, 0.8, 0))
+# number of breaks = 12, histrogram for frequencies (freq=TRUE) and fonts for axis, 
+## axis labes and main are a little bit smaller; labels are closer to plot
