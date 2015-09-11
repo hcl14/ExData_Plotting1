@@ -1,6 +1,7 @@
 ##### Read specified strings from file ##########################################
 
-## I know about the way that uses library(sqldf) but it becomes complicated for me to deal with the dates in format dd/mm/YYYY
+## I know about the way that uses library(sqldf) but it becomes complicated for me to deal with 
+## the dates in format dd/mm/YYYY
 
 first_date <- "2007-02-01" 
 second_date <- "2007-02-03" ## ! required date + 1 day !
@@ -20,7 +21,8 @@ while((length(d) > 0) && (myDate<as.POSIXct(second_date))) { ## EOF and Date che
   
   #Do stuff with d....
   myDate<-as.POSIXct(d[1], format="%d/%m/%Y") ## read the date in the format that allows comparsion
-  if ((myDate >= as.POSIXct(first_date)) && (myDate < as.POSIXct(second_date))){ ## Looks like as.POSIXct("2007-02-02") = as.POSIXct("2007-02-02 00:00:00")
+  if ((myDate >= as.POSIXct(first_date)) && (myDate < as.POSIXct(second_date))){ 
+  ## Looks like as.POSIXct("2007-02-02") = as.POSIXct("2007-02-02 00:00:00")
     ## so we will lose 2007-02-02 data if we write myDate <= as.POSIXct("2007-02-02")
     
     
@@ -43,7 +45,8 @@ close(con) ## close file connection
 m[,3:9] <- sapply(m[,3:9], as.numeric)
 
 ## Let's save the full time for the future, but have the date separately too
-m[,2]<-as.POSIXct(mapply(paste, m[,1], m[,2]), format="%d/%m/%Y%H:%M:%S") ## we combine string values from first two colums
+m[,2]<-as.POSIXct(mapply(paste, m[,1], m[,2]), format="%d/%m/%Y%H:%M:%S") ## we combine string values 
+##from first two colums
 ## and convert them to the POSIXct format
 m[,1]<-as.Date(m[,1], format="%d/%m/%Y")
 
@@ -53,5 +56,6 @@ m[,1]<-as.Date(m[,1], format="%d/%m/%Y")
 
 ## Plotting histogram for 'Global_active_power'
 
-hist(m$Global_active_power, breaks = 12, xlab= "Global Active Power (kilowatts)", ylab="Frequency", main = "Global Active Power", freq=TRUE, col = "red", cex.lab=0.8, cex.axis=0.8)
-# number of breaks = 12, histrogram for frequencies (freq=TRUE) and font for axis and axis labes is a little bit smaller
+hist(m$Global_active_power, breaks = 12, xlab= "Global Active Power (kilowatts)", 
+              ylab="Frequency", main = "Global Active Power", freq=TRUE, col = "red", cex.lab=0.8, cex.axis=0.8)
+# number of breaks = 12, histrogram for frequencies(freq=TRUE) and font for axis and axis labes is a little bit smaller
